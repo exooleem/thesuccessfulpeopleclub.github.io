@@ -7,65 +7,6 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fff;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f7f7f7;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-    }
-
-    img {
-      max-width: 240px;
-      width: 40vw;
-      margin-bottom: 40px;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      width: 300px;
-      max-width: 90%;
-    }
-
-    input {
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px;
-    }
-
-    button {
-      padding: 12px;
-      background-color: #800020; /* бордовый */
-      color: white;
-      font-size: 16px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #660018;
-    }
-  </style>
-</head>
-<body>
-
-  <img src="logo.png" alt="Successful People Club Logo" />
-
-  <form action="https://formsubmit.io/send/YOUR_EMAIL_HERE" method="POST">
-    <input type="text" name="first_name" placeholder="Имя" required />
-    <input type="text" name="last_name" placeholder="Фамилия" required />
-    <input type="email" name="email" placeholder="E-mail" required />
-
-    <input type="hidden" name="_captcha" value="false" />
-    <button type="submit">Вступить в клуб</button>
-  </form>
-
-</body>
-</html>
