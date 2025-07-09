@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <title>Successful People Club</title>
@@ -39,17 +39,18 @@
 
     button {
       padding: 12px;
-      background-color: black;
+      background-color: #800020; /* бордовый */
       color: white;
-      border: none;
       font-size: 16px;
+      border: none;
+      border-radius: 30px;
       cursor: pointer;
-      border-radius: 4px;
-      transition: 0.3s ease;
+      font-weight: bold;
+      transition: background 0.3s ease;
     }
 
     button:hover {
-      background-color: #333;
+      background-color: #660018;
     }
   </style>
 </head>
@@ -58,17 +59,12 @@
   <img src="logo.png" alt="Successful People Club Logo" />
 
   <form action="https://formsubmit.io/send/YOUR_EMAIL_HERE" method="POST">
-    <input type="text" name="first_name" placeholder="First name" required />
-    <input type="text" name="last_name" placeholder="Last name" required />
-    <input type="email" name="email" placeholder="Email" required />
+    <input type="text" name="first_name" placeholder="Имя" required />
+    <input type="text" name="last_name" placeholder="Фамилия" required />
+    <input type="email" name="email" placeholder="E-mail" required />
 
-    <!-- Optional: Hidden input to disable captcha -->
     <input type="hidden" name="_captcha" value="false" />
-
-    <!-- Optional: Redirect after submit -->
-    <input type="hidden" name="_redirect" value="https://yourdomain.com/thankyou.html" />
-
-    <button type="submit">Join the Club</button>
+    <button type="submit">Вступить в клуб</button>
   </form>
 
 </body>
