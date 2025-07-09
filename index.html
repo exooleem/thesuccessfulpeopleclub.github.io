@@ -7,69 +7,50 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      background-color: #f7f7f7;
+      font-family: Arial, sans-serif;
+      background: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      padding: 20px;
     }
 
     img {
-      max-width: 180px;
-      width: 35vw;
-      margin-bottom: 30px;
+      max-width: 280px;
+      height: auto;
+      margin-bottom: 40px;
     }
 
     form {
-      background-color: #ffffff;
-      padding: 40px 30px;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
       display: flex;
       flex-direction: column;
-      width: 100%;
-      max-width: 400px;
-      border: 1px solid #e0e0e0;
+      width: 300px;
+      max-width: 90%;
     }
 
     input {
-      padding: 14px 18px;
-      margin-bottom: 20px;
-      border: 1px solid #d1d1d1;
-      border-radius: 12px;
-      font-size: 15px;
-      font-family: inherit;
-      transition: border-color 0.3s ease;
-    }
-
-    input:focus {
-      outline: none;
-      border-color: #800020;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
     }
 
     button {
-      padding: 14px;
-      background-color: #800020;
-      color: #fff;
+      padding: 12px;
+      background-color: #800020; /* бордовый */
+      color: white;
       font-size: 16px;
-      font-weight: 600;
       border: none;
       border-radius: 30px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      font-weight: bold;
+      transition: background 0.3s ease;
     }
 
     button:hover {
       background-color: #660018;
-    }
-
-    max-width: 500px {
-      form {
-        padding: 30px 20px;
-      }
     }
   </style>
 </head>
@@ -78,12 +59,12 @@
   <img src="logo.png" alt="Successful People Club Logo" />
 
   <form action="https://formsubmit.io/send/YOUR_EMAIL_HERE" method="POST">
-    <input type="text" name="first_name" placeholder="Имя" required />
-    <input type="text" name="last_name" placeholder="Фамилия" required />
+    <input type="text" name="first_name" placeholder="First name" required />
+    <input type="text" name="last_name" placeholder="Last name" required />
     <input type="email" name="email" placeholder="E-mail" required />
 
     <input type="hidden" name="_captcha" value="false" />
-    <button type="submit">Вступить в клуб</button>
+    <button type="submit">Join the Club</button>
   </form>
 
 </body>
