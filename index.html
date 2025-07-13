@@ -17,7 +17,7 @@
       padding-top: 40px;
     }
 
-    /* Slide Toggle */
+    /* Slide Toggle (уменьшенный) */
     .slide-toggle {
       position: relative;
       display: flex;
@@ -25,16 +25,19 @@
       border-radius: 30px;
       overflow: hidden;
       margin-bottom: 30px;
-      width: 300px;
+      width: 220px;
       max-width: 90%;
+      height: 36px;
+      user-select: none; /* запрет выделения при свайпе */
+      touch-action: pan-y; /* чтобы браузер не мешал вертикальному скроллу */
     }
 
     .slide-toggle button {
       flex: 1;
-      padding: 10px 0;
+      padding: 6px 0;
       background: none;
       border: none;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: bold;
       color: #610000;
       cursor: pointer;
@@ -121,10 +124,10 @@
 <body>
 
   <!-- Slide Toggle -->
-  <div class="slide-toggle" id="toggleSlider">
+  <div class="slide-toggle" id="toggleSlider" aria-label="Переключатель форм">
     <div class="slider"></div>
-    <button type="button" id="btnContact">Contact Us</button>
-    <button type="button" id="btnLogin">Authorization</button>
+    <button type="button" id="btnContact" aria-pressed="true">Contact Us</button>
+    <button type="button" id="btnLogin" aria-pressed="false">Authorization</button>
   </div>
 
   <!-- Логотип -->
@@ -157,16 +160,47 @@
       slider.classList.remove('active');
       formContact.classList.add('active');
       formLogin.classList.remove('active');
+      btnContact.setAttribute('aria-pressed', 'true');
+      btnLogin.setAttribute('aria-pressed', 'false');
     }
 
     function showLogin() {
       slider.classList.add('active');
       formContact.classList.remove('active');
       formLogin.classList.add('active');
+      btnContact.setAttribute('aria-pressed', 'false');
+      btnLogin.setAttribute('aria-pressed', 'true');
     }
 
     btnContact.addEventListener('click', showContact);
     btnLogin.addEventListener('click', showLogin);
+
+    // Добавим поддержку свайпа
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const swipeThreshold = 50; // минимальное расстояние для срабатывания свайпа
+
+    slider.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    slider.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const diffX = touchEndX - touchStartX;
+      if (Math.abs(diffX) > swipeThreshold) {
+        if (diffX > 0) {
+          // свайп вправо — показываем Contact
+          showContact();
+        } else {
+          // свайп влево — показываем Login
+          showLogin();
+        }
+      }
+    }
   </script>
 </body>
 </html>
