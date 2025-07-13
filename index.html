@@ -18,7 +18,7 @@
       touch-action: pan-y;
     }
 
-    /* Slide Toggle */
+    /* Slide Toggle — увеличенный */
     .slide-toggle {
       position: relative;
       display: flex;
@@ -26,27 +26,21 @@
       border-radius: 30px;
       overflow: hidden;
       margin-bottom: 30px;
-      width: 130px;       /* уменьшенная ширина */
-      max-width: 90%;
-      height: 24px;       /* уменьшенная высота */
+      width: 200px;
+      height: 32px;
       user-select: none;
     }
 
     .slide-toggle button {
+      all: unset;
       flex: 1;
-      padding: 2px 0;      /* уменьшенный паддинг */
-      background: none;
-      border: none;
-      font-size: 10px;     /* мелкий шрифт */
+      text-align: center;
+      font-size: 12px;
       font-weight: bold;
       cursor: pointer;
       z-index: 1;
-      transition: color 0.3s ease;
-      color: white !important;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      outline: none;
+      color: white;
+      padding: 6px 0;
     }
 
     .slide-toggle .slider {
@@ -64,22 +58,12 @@
       transform: translateX(100%);
     }
 
-    /* Активная кнопка Authorization — белый текст, неактивная — прозрачный */
-    .slide-toggle.active button:last-child {
-      color: white !important;
-    }
-
     .slide-toggle.active button:first-child {
-      color: transparent !important;
+      color: transparent;
     }
 
     .slide-toggle:not(.active) button:last-child {
-      color: transparent !important;
-    }
-
-    /* Contact Us всегда белый */
-    #btnContact {
-      color: white !important;
+      color: transparent;
     }
 
     img {
@@ -134,10 +118,10 @@
 <body>
 
   <!-- Slide Toggle -->
-  <div class="slide-toggle" id="toggleSlider" aria-label="Переключатель форм">
+  <div class="slide-toggle" id="toggleSlider">
     <div class="slider"></div>
-    <button type="button" id="btnContact" aria-pressed="true">Contact Us</button>
-    <button type="button" id="btnLogin" aria-pressed="false">Authorization</button>
+    <button type="button" id="btnContact">Contact Us</button>
+    <button type="button" id="btnLogin">Authorization</button>
   </div>
 
   <!-- Логотип -->
@@ -170,16 +154,12 @@
       slider.classList.remove('active');
       formContact.classList.add('active');
       formLogin.classList.remove('active');
-      btnContact.setAttribute('aria-pressed', 'true');
-      btnLogin.setAttribute('aria-pressed', 'false');
     }
 
     function showLogin() {
       slider.classList.add('active');
       formContact.classList.remove('active');
       formLogin.classList.add('active');
-      btnContact.setAttribute('aria-pressed', 'false');
-      btnLogin.setAttribute('aria-pressed', 'true');
     }
 
     btnContact.addEventListener('click', showContact);
