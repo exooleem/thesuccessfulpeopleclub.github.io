@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Successful People Club — Авторизация</title>
+  <title>Successful People Club</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     * {
@@ -25,28 +25,33 @@
       max-width: 320px;
       height: auto;
       cursor: pointer;
+      margin-bottom: 20px;
     }
 
-    .form-container {
-      position: relative;
+    .form-wrapper {
       width: 300px;
       max-width: 90%;
-      margin-top: 20px;
+      position: relative;
     }
 
     form {
-      display: none;
-      flex-direction: column;
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
+      display: flex;
+      flex-direction: column;
       opacity: 0;
+      pointer-events: none;
       transform: translateY(10px);
       transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
     form.active {
-      display: flex;
       opacity: 1;
+      pointer-events: auto;
       transform: translateY(0);
+      position: relative;
     }
 
     input {
@@ -80,8 +85,8 @@
       text-align: center;
       margin-top: 10px;
       opacity: 0;
-      transition: opacity 0.3s ease;
       height: 18px;
+      transition: opacity 0.3s ease;
     }
 
     #errorMessage.visible {
@@ -91,10 +96,9 @@
 </head>
 <body>
 
-  <!-- Логотип -->
   <img src="logo.svg" id="logo" alt="Successful People Club" />
 
-  <div class="form-container">
+  <div class="form-wrapper">
     <!-- Форма заявки -->
     <form id="formContact" class="active" action="https://formbold.com/s/9xQ4W" method="POST" novalidate>
       <input type="text" name="name" placeholder="Name" required />
@@ -102,9 +106,6 @@
       <input type="hidden" name="_captcha" value="false" />
       <button type="submit" class="submit-btn">Contact us</button>
     </form>
-
-    <!-- Сообщение об ошибке -->
-    <div id="errorMessage"></div>
 
     <!-- Форма авторизации -->
     <form id="formLogin" novalidate>
@@ -114,6 +115,8 @@
     </form>
   </div>
 
+  <div id="errorMessage"></div>
+
   <script>
     const logo = document.getElementById('logo');
     const formContact = document.getElementById('formContact');
@@ -122,26 +125,26 @@
 
     const users = [
       { name: 'admin', password: '1234' },
-      { name: 'Medina', password: '1234' }
+      { name: 'user', password: 'pass' }
     ];
 
-    // Переключение между формами
-    logo.addEventListener('click', () => {
-      const contactVisible = formContact.classList.contains('active');
+    let showingContact = true;
 
-      if (contactVisible) {
-        formContact.classList.remove('active');
-        formLogin.classList.add('active');
-      } else {
-        formLogin.classList.remove('active');
+    logo.addEventListener('click', () => {
+      showingContact = !showingContact;
+
+      if (showingContact) {
         formContact.classList.add('active');
+        formLogin.classList.remove('active');
+      } else {
+        formLogin.classList.add('active');
+        formContact.classList.remove('active');
       }
 
       errorMessage.textContent = '';
       errorMessage.classList.remove('visible');
     });
 
-    // Обработка авторизации
     formLogin.addEventListener('submit', (e) => {
       e.preventDefault();
 
