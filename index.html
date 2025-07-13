@@ -15,11 +15,8 @@
       justify-content: flex-start;
       min-height: 100vh;
       padding-top: 40px;
-      touch-action: pan-y;
-    }
-
-    .slide-toggle {
-      display: none;
+      user-select: none;
+      touch-action: manipulation;
     }
 
     img {
@@ -88,7 +85,7 @@
   <!-- Логотип -->
   <img src="logo.svg" alt="Successful People Club Logo" />
 
-  <!-- Форма 1: Новая заявка -->
+  <!-- Contact Form -->
   <form id="formContact" class="active" action="https://formbold.com/s/9xQ4W" method="POST">
     <input type="text" name="name" placeholder="Name" required />
     <input type="email" name="email" placeholder="E-mail" required />
@@ -96,14 +93,14 @@
     <button class="submit-btn" type="submit">Contact us</button>
   </form>
 
-  <!-- Форма 2: Авторизация -->
+  <!-- Login Form -->
   <form id="formLogin">
     <input type="text" id="loginName" placeholder="Name" required />
     <input type="password" id="loginPassword" placeholder="Password" required />
     <button class="submit-btn" type="submit">Authorization</button>
   </form>
 
-  <!-- Приветствие после входа -->
+  <!-- Welcome -->
   <div class="welcome" id="welcomeMessage"></div>
 
   <script>
@@ -111,44 +108,15 @@
     const formLogin = document.getElementById('formLogin');
     const welcomeMessage = document.getElementById('welcomeMessage');
 
-    // Показываем Contact по свайпу вправо, Login — влево
-    let touchStartX = 0;
-    let touchEndX = 0;
-    const swipeThreshold = 50;
-
-    document.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    document.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-    }, { passive: true });
-
-    function handleSwipe() {
-      const diffX = touchEndX - touchStartX;
-      if (Math.abs(diffX) > swipeThreshold) {
-        if (diffX > 0) {
-          showContact();
-        } else {
-          showLogin();
-        }
-      }
-    }
-
-    function showContact() {
-      formContact.classList.add('active');
-      formLogin.classList.remove('active');
+    // Переключение форм по клику в любом месте экрана
+    document.addEventListener('click', () => {
+      const contactVisible = formContact.classList.contains('active');
+      formContact.classList.toggle('active', !contactVisible);
+      formLogin.classList.toggle('active', contactVisible);
       welcomeMessage.classList.remove('active');
-    }
+    });
 
-    function showLogin() {
-      formContact.classList.remove('active');
-      formLogin.classList.add('active');
-      welcomeMessage.classList.remove('active');
-    }
-
-    // Простейшая авторизация
+    // Авторизация
     formLogin.addEventListener('submit', function (e) {
       e.preventDefault();
       const name = document.getElementById('loginName').value.trim();
