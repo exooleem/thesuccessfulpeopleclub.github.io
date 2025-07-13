@@ -122,17 +122,15 @@
       errorMessage.style.display = 'none';
     }
 
-    // Клик по логотипу — и на мобильных, и на ПК
     logo.addEventListener('click', toggleForms);
 
-    // Пользователи
     const users = [
-      { name: 'admin', password: '1234' },
-      { name: 'user2', password: 'pass2' },
-      { name: 'john', password: 'doe123' }
+      { name: 'sooleem', password: '12345' },
+      { name: 'medina', password: '12345' },
+      { name: 'melana', password: '12345' },
+      { name: 'muslim', password: 'd12345' }
     ];
 
-    // Обработка авторизации
     formLogin.addEventListener('submit', function (e) {
       e.preventDefault();
 
