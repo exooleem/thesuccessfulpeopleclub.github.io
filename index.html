@@ -26,18 +26,18 @@
       border-radius: 30px;
       overflow: hidden;
       margin-bottom: 30px;
-      width: 220px;
+      width: 160px;       /* уменьшили ширину */
       max-width: 90%;
-      height: 36px;
+      height: 28px;       /* уменьшили высоту */
       user-select: none;
     }
 
     .slide-toggle button {
       flex: 1;
-      padding: 6px 0;
+      padding: 4px 0;      /* меньше паддинга */
       background: none;
       border: none;
-      font-size: 12px;
+      font-size: 11px;     /* поменьше шрифт */
       font-weight: bold;
       cursor: pointer;
       z-index: 1;
@@ -49,7 +49,7 @@
       top: 0;
       bottom: 0;
       width: 50%;
-      background: #610000; /* ВЕРНУТ ЦВЕТ */
+      background: #610000; /* бордовый ползунок */
       border-radius: 30px;
       transition: transform 0.3s ease;
       z-index: 0;
@@ -59,17 +59,18 @@
       transform: translateX(100%);
     }
 
-    /* Активная кнопка — белый текст, неактивная — прозрачный */
+    /* Текст Contact Us всегда белый */
+    #btnContact {
+      color: white !important;
+    }
+
+    /* Активная кнопка Authorization — белый текст, неактивная — прозрачный */
     .slide-toggle.active button:last-child {
       color: white;
     }
 
     .slide-toggle.active button:first-child {
       color: transparent;
-    }
-
-    .slide-toggle:not(.active) button:first-child {
-      color: white;
     }
 
     .slide-toggle:not(.active) button:last-child {
