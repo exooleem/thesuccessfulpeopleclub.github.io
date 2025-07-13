@@ -87,16 +87,17 @@ color: #610000;
 font-weight: bold;
 font-size: 14px;
 text-align: center;
-margin-top: 4px; /* уменьшенный отступ сверху */
+margin-bottom: 8px;
 opacity: 0;
 transition: opacity 0.3s ease, transform 0.3s ease;
-transform: translateY(0);
+transform: translateY(-10px);
 height: auto;
+min-height: 18px;
 }
 
 #errorMessage.visible {
 opacity: 1;
-transform: translateY(-4px);
+transform: translateY(0);
 }
 </style>
 </head>
@@ -118,10 +119,10 @@ transform: translateY(-4px);
 
 <!— Форма авторизации —>
 <form id="formLogin" novalidate>
+<div id="errorMessage"></div> <!— Ошибка сверху —>
 <input type="text" id="loginName" placeholder="Login" required />
 <input type="password" id="loginPassword" placeholder="Password" required />
 <button type="submit" class="submit-btn">Authorization</button>
-<div id="errorMessage"></div> <!— ошибка внутри формы —>
 </form>
 
 </div>
