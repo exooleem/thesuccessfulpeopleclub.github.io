@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Successful People Club</title>
+  <title>Successful People Club — Вход</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
@@ -67,18 +67,6 @@
     button.submit-btn:hover {
       background-color: #660018;
     }
-
-    .welcome {
-      display: none;
-      font-size: 20px;
-      font-weight: bold;
-      color: #610000;
-      margin-top: 30px;
-    }
-
-    .welcome.active {
-      display: block;
-    }
   </style>
 </head>
 <body>
@@ -96,58 +84,33 @@
 
   <!-- Login Form -->
   <form id="formLogin">
-    <input type="text" id="loginName" placeholder="Login" required />
+    <input type="text" id="loginName" placeholder="Name" required />
     <input type="password" id="loginPassword" placeholder="Password" required />
     <button class="submit-btn" type="submit">Authorization</button>
   </form>
 
-  <!-- Welcome -->
-  <div class="welcome" id="welcomeMessage"></div>
-
   <script>
     const formContact = document.getElementById('formContact');
     const formLogin = document.getElementById('formLogin');
-    const welcomeMessage = document.getElementById('welcomeMessage');
     const logo = document.getElementById('logo');
 
-    // Переключение между формами
     function toggleForms() {
       const contactVisible = formContact.classList.contains('active');
       formContact.classList.toggle('active', !contactVisible);
       formLogin.classList.toggle('active', contactVisible);
-      welcomeMessage.classList.remove('active');
     }
 
-    // Клик по логотипу (ПК)
     logo.addEventListener('click', toggleForms);
 
-    // Свайп на мобильных
-    let touchStartX = 0;
-    let touchEndX = 0;
-    const swipeThreshold = 50;
-
-    document.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    document.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      const diffX = touchEndX - touchStartX;
-      if (Math.abs(diffX) > swipeThreshold) {
-        toggleForms();
-      }
-    }, { passive: true });
-
-    // Авторизация
+    // Авторизация с редиректом
     formLogin.addEventListener('submit', function (e) {
       e.preventDefault();
       const name = document.getElementById('loginName').value.trim();
       const password = document.getElementById('loginPassword').value;
 
       if (name === 'admin' && password === '1234') {
-        formLogin.classList.remove('active');
-        welcomeMessage.classList.add('active');
-        welcomeMessage.textContent = `Welcome, ${name}!`;
+        // Редирект на success.html
+        window.location.href = 'success.html';
       } else {
         alert('Invalid credentials. Try admin / 1234');
       }
