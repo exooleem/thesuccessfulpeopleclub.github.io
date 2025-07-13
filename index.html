@@ -15,6 +15,7 @@
       justify-content: flex-start;
       min-height: 100vh;
       padding-top: 40px;
+      touch-action: pan-y;
     }
 
     /* Slide Toggle (уменьшенный) */
@@ -28,8 +29,7 @@
       width: 220px;
       max-width: 90%;
       height: 36px;
-      user-select: none; /* запрет выделения при свайпе */
-      touch-action: pan-y; /* чтобы браузер не мешал вертикальному скроллу */
+      user-select: none;
     }
 
     .slide-toggle button {
@@ -39,7 +39,6 @@
       border: none;
       font-size: 12px;
       font-weight: bold;
-      color: #610000;
       cursor: pointer;
       z-index: 1;
       transition: color 0.3s ease;
@@ -60,16 +59,21 @@
       transform: translateX(100%);
     }
 
-    .slide-toggle.active button:first-child {
-      color: #610000;
-    }
-
+    /* Активная кнопка — белый текст, неактивная — прозрачный */
     .slide-toggle.active button:last-child {
       color: white;
     }
 
+    .slide-toggle.active button:first-child {
+      color: transparent;
+    }
+
     .slide-toggle:not(.active) button:first-child {
       color: white;
+    }
+
+    .slide-toggle:not(.active) button:last-child {
+      color: transparent;
     }
 
     img {
@@ -175,16 +179,16 @@
     btnContact.addEventListener('click', showContact);
     btnLogin.addEventListener('click', showLogin);
 
-    // Добавим поддержку свайпа
+    // Свайп на всей странице
     let touchStartX = 0;
     let touchEndX = 0;
-    const swipeThreshold = 50; // минимальное расстояние для срабатывания свайпа
+    const swipeThreshold = 50;
 
-    slider.addEventListener('touchstart', (e) => {
+    document.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
     }, { passive: true });
 
-    slider.addEventListener('touchend', (e) => {
+    document.addEventListener('touchend', (e) => {
       touchEndX = e.changedTouches[0].screenX;
       handleSwipe();
     }, { passive: true });
@@ -193,10 +197,8 @@
       const diffX = touchEndX - touchStartX;
       if (Math.abs(diffX) > swipeThreshold) {
         if (diffX > 0) {
-          // свайп вправо — показываем Contact
           showContact();
         } else {
-          // свайп влево — показываем Login
           showLogin();
         }
       }
