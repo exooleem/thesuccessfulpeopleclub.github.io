@@ -12,20 +12,82 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       min-height: 100vh;
+      padding-top: 40px;
     }
+
     img {
       max-width: 320px;
       height: auto;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
-    form {
+
+    .toggle-wrapper {
       display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .toggle-label {
+      margin: 0 10px;
+      font-size: 14px;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0;
+      right: 0; bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 30px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 24px;
+      width: 24px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    .toggle-switch input:checked + .slider {
+      background-color: #610000;
+    }
+
+    .toggle-switch input:checked + .slider:before {
+      transform: translateX(30px);
+    }
+
+    form {
+      display: none;
       flex-direction: column;
       width: 300px;
       max-width: 90%;
     }
+
+    form.active {
+      display: flex;
+    }
+
     input {
       padding: 10px;
       margin-bottom: 15px;
@@ -33,9 +95,10 @@
       border-radius: 4px;
       font-size: 14px;
     }
+
     button {
       padding: 12px;
-      background-color: #610000; /* бордовый */
+      background-color: #610000;
       color: white;
       font-size: 16px;
       border: none;
@@ -44,18 +107,55 @@
       font-weight: bold;
       transition: background 0.3s ease;
     }
+
     button:hover {
       background-color: #660018;
     }
   </style>
 </head>
 <body>
+
   <img src="logo.svg" alt="Successful People Club Logo" />
-  <form action="https://formbold.com/s/9xQ4W" method="POST">
+
+  <div class="toggle-wrapper">
+    <span class="toggle-label">New User</span>
+    <label class="toggle-switch">
+      <input type="checkbox" id="formToggle">
+      <span class="slider"></span>
+    </label>
+    <span class="toggle-label">Member Login</span>
+  </div>
+
+  <!-- Форма 1: Новая заявка -->
+  <form id="formContact" class="active" action="https://formbold.com/s/9xQ4W" method="POST">
     <input type="text" name="name" placeholder="Name" required />
     <input type="email" name="email" placeholder="E-mail" required />
     <input type="hidden" name="_captcha" value="false" />
     <button type="submit">Contact us</button>
   </form>
+
+  <!-- Форма 2: Авторизация -->
+  <form id="formLogin" action="https://formbold.com/s/9xQ4W" method="POST">
+    <input type="text" name="name" placeholder="Name" required />
+    <input type="email" name="email" placeholder="E-mail" required />
+    <input type="hidden" name="_captcha" value="false" />
+    <button type="submit">Authorization</button>
+  </form>
+
+  <script>
+    const toggle = document.getElementById('formToggle');
+    const formContact = document.getElementById('formContact');
+    const formLogin = document.getElementById('formLogin');
+
+    toggle.addEventListener('change', () => {
+      if (toggle.checked) {
+        formContact.classList.remove('active');
+        formLogin.classList.add('active');
+      } else {
+        formLogin.classList.remove('active');
+        formContact.classList.add('active');
+      }
+    });
+  </script>
 </body>
 </html>
