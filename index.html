@@ -1,171 +1,178 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <title>Successful People Club</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8" />
+<title>Successful People Club</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+* {
+box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      padding: 0 10px;
-    }
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background: #fff;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 100vh;
+padding: 0 10px;
+}
 
-    img {
-      max-width: 320px;
-      height: auto;
-      cursor: pointer;
-      margin-bottom: 20px;
-    }
+img {
+max-width: 320px;
+height: auto;
+cursor: pointer;
+margin-bottom: 20px;
+}
 
-    .form-wrapper {
-      width: 300px;
-      max-width: 90%;
-      position: relative;
-      min-height: 200px;
-    }
+.form-wrapper {
+width: 300px;
+max-width: 90%;
+position: relative;
+min-height: 200px;
+}
 
-    form {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease-in-out;
-    }
+form {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+display: flex;
+flex-direction: column;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.5s ease-in-out;
+}
 
-    form.active {
-      opacity: 1;
-      pointer-events: auto;
-      position: relative;
-    }
+form.active {
+opacity: 1;
+pointer-events: auto;
+position: relative;
+}
 
-    input {
-      padding: 10px;
-      margin-bottom: 15px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
+input {
+padding: 10px;
+margin-bottom: 15px;
+font-size: 14px;
+border: 1px solid #ccc;
+border-radius: 4px;
+}
 
-    button.submit-btn {
-      padding: 12px;
-      background-color: #610000;
-      color: white;
-      font-size: 16px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.5s ease;
-    }
+button.submit-btn {
+padding: 12px;
+background-color: #610000;
+color: white;
+font-size: 16px;
+border: none;
+border-radius: 30px;
+cursor: pointer;
+font-weight: bold;
+transition: background 0.5s ease;
+}
 
-    button.submit-btn:hover {
-      background-color: #660018;
-    }
+button.submit-btn:hover {
+background-color: #660018;
+}
 
-    #errorMessage {
-      color: #610000;
-      font-weight: bold;
-      font-size: 14px;
-      text-align: center;
-      margin-top: 0px;
-      opacity: 0;
-      height: 18px;
-      transition: opacity 0.3s ease;
-    }
+#errorMessage {
+color: #610000;
+font-weight: bold;
+font-size: 14px;
+text-align: center;
+margin-top: 0;
+opacity: 0;
+height: 18px;
+transition: opacity 0.3s ease, transform 0.3s ease;
+transform: translateY(0);
+}
 
-    #errorMessage.visible {
-      opacity: 1;
-    }
-  </style>
+#errorMessage.visible {
+opacity: 1;
+transform: translateY(-4px);
+}
+</style>
 </head>
 <body>
 
-  <!-- Логотип -->
-  <img src="logo.svg" id="logo" alt="Successful People Club" />
+<!— Логотип —>
+<img src="logo.svg" id="logo" alt="Successful People Club" />
 
-  <!-- Формы -->
-  <div class="form-wrapper">
-    <!-- Форма заявки -->
-    <form id="formContact" class="active" action="https://formbold.com/s/9xQ4W" method="POST" novalidate>
-      <input type="text" name="name" placeholder="Name" required />
-      <input type="email" name="email" placeholder="E-mail" required />
-      <input type="hidden" name="_captcha" value="false" />
-      <button type="submit" class="submit-btn">Contact us</button>
-    </form>
+<!— Формы —>
+<div class="form-wrapper">
+<!— Форма заявки —>
+<form id="formContact" class="active" action="https://formbold.com/s/9xQ4W" method="POST" novalidate>
+<input type="text" name="name" placeholder="Name" required />
+<input type="email" name="email" placeholder="E-mail" required />
+<input type="hidden" name="_captcha" value="false" />
+<button type="submit" class="submit-btn">Contact us</button>
+</form>
 
-    <!-- Форма авторизации -->
-    <form id="formLogin" novalidate>
-      <input type="text" id="loginName" placeholder="Login" required />
-      <input type="password" id="loginPassword" placeholder="Password" required />
-      <button type="submit" class="submit-btn">Authorization</button>
-    </form>
-  </div>
+<!— Форма авторизации —>
+<form id="formLogin" novalidate>
+<input type="text" id="loginName" placeholder="Login" required />
+<input type="password" id="loginPassword" placeholder="Password" required />
+<button type="submit" class="submit-btn">Authorization</button>
+</form>
+</div>
 
-  <div id="errorMessage"></div>
+<div id="errorMessage"></div>
 
-  <script>
-    const logo = document.getElementById('logo');
-    const formContact = document.getElementById('formContact');
-    const formLogin = document.getElementById('formLogin');
-    const errorMessage = document.getElementById('errorMessage');
+<script>
+const logo = document.getElementById('logo');
+const formContact = document.getElementById('formContact');
+const formLogin = document.getElementById('formLogin');
+const errorMessage = document.getElementById('errorMessage');
 
-    const users = [
-      { name: 'admin', password: '1234' },
-      { name: 'Medina', password: '1234' },
-      { name: 'Muslim', password: '1234' },
-      { name: 'user', password: 'pass' }
-    ];
+const users = [
+{ name: 'admin', password: '1234' },
+{ name: 'Medina', password: '1234' },
+{ name: 'Muslim', password: '1234' },
+{ name: 'user', password: 'pass' }
+];
 
-    let showingContact = true;
+let showingContact = true;
 
-    logo.addEventListener('click', () => {
-      showingContact = !showingContact;
+logo.addEventListener('click', () => {
+showingContact = !showingContact;
 
-      if (showingContact) {
-        formContact.classList.add('active');
-        formLogin.classList.remove('active');
-      } else {
-        formLogin.classList.add('active');
-        formContact.classList.remove('active');
-      }
+if (showingContact) {
+formContact.classList.add('active');
+formLogin.classList.remove('active');
+} else {
+formLogin.classList.add('active');
+formContact.classList.remove('active');
+}
 
-      errorMessage.textContent = '';
-      errorMessage.classList.remove('visible');
-    });
+errorMessage.textContent = '';
+errorMessage.classList.remove('visible');
+});
 
-    formLogin.addEventListener('submit', (e) => {
-      e.preventDefault();
+formLogin.addEventListener('submit', (e) => {
+e.preventDefault();
 
-      const name = document.getElementById('loginName').value.trim();
-      const password = document.getElementById('loginPassword').value;
+const name = document.getElementById('loginName').value.trim();
+const password = document.getElementById('loginPassword').value;
 
-      const validUser = users.find(u => u.name === name && u.password === password);
+const validUser = users.find(u => u.name === name && u.password === password);
 
-      if (validUser) {
-        errorMessage.textContent = '';
-        errorMessage.classList.remove('visible');
-        window.location.href = 'success.html';
-      } else {
-        errorMessage.textContent = 'Invalid login or password.';
-        errorMessage.classList.add('visible');
-      }
-    });
-  </script>
+if (validUser) {
+errorMessage.textContent = '';
+errorMessage.classList.remove('visible');
+window.location.href = 'success.html';
+} else {
+errorMessage.textContent = 'Invalid login or password.';
+errorMessage.classList.add('visible');
+
+// Автоматически скрыть через 3 секунды
+setTimeout(() => {
+errorMessage.classList.remove('visible');
+}, 3000);
+}
+});
+</script>
 
 </body>
 </html>
