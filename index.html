@@ -18,52 +18,8 @@
       touch-action: pan-y;
     }
 
-    /* Slide Toggle — увеличенный */
     .slide-toggle {
-      position: relative;
-      display: flex;
-      border: 1px solid #ccc;
-      border-radius: 30px;
-      overflow: hidden;
-      margin-bottom: 30px;
-      width: 200px;
-      height: 32px;
-      user-select: none;
-    }
-
-    .slide-toggle button {
-      all: unset;
-      flex: 1;
-      text-align: center;
-      font-size: 12px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 1;
-      color: white;
-      padding: 6px 0;
-    }
-
-    .slide-toggle .slider {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 50%;
-      background: #610000;
-      border-radius: 30px;
-      transition: transform 0.3s ease;
-      z-index: 0;
-    }
-
-    .slide-toggle.active .slider {
-      transform: translateX(100%);
-    }
-
-    .slide-toggle.active button:first-child {
-      color: transparent;
-    }
-
-    .slide-toggle:not(.active) button:last-child {
-      color: transparent;
+      display: none;
     }
 
     img {
@@ -113,16 +69,21 @@
     button.submit-btn:hover {
       background-color: #660018;
     }
+
+    .welcome {
+      display: none;
+      font-size: 20px;
+      font-weight: bold;
+      color: #610000;
+      margin-top: 30px;
+    }
+
+    .welcome.active {
+      display: block;
+    }
   </style>
 </head>
 <body>
-
-  <!-- Slide Toggle -->
-  <div class="slide-toggle" id="toggleSlider">
-    <div class="slider"></div>
-    <button type="button" id="btnContact">Contact Us</button>
-    <button type="button" id="btnLogin">Authorization</button>
-  </div>
 
   <!-- Логотип -->
   <img src="logo.svg" alt="Successful People Club Logo" />
@@ -136,36 +97,21 @@
   </form>
 
   <!-- Форма 2: Авторизация -->
-  <form id="formLogin" action="https://formbold.com/s/9xQ4W" method="POST">
-    <input type="text" name="name" placeholder="Name" required />
-    <input type="password" name="password" placeholder="Password" required />
-    <input type="hidden" name="_captcha" value="false" />
+  <form id="formLogin">
+    <input type="text" id="loginName" placeholder="Name" required />
+    <input type="password" id="loginPassword" placeholder="Password" required />
     <button class="submit-btn" type="submit">Authorization</button>
   </form>
 
+  <!-- Приветствие после входа -->
+  <div class="welcome" id="welcomeMessage"></div>
+
   <script>
-    const slider = document.getElementById('toggleSlider');
-    const btnContact = document.getElementById('btnContact');
-    const btnLogin = document.getElementById('btnLogin');
     const formContact = document.getElementById('formContact');
     const formLogin = document.getElementById('formLogin');
+    const welcomeMessage = document.getElementById('welcomeMessage');
 
-    function showContact() {
-      slider.classList.remove('active');
-      formContact.classList.add('active');
-      formLogin.classList.remove('active');
-    }
-
-    function showLogin() {
-      slider.classList.add('active');
-      formContact.classList.remove('active');
-      formLogin.classList.add('active');
-    }
-
-    btnContact.addEventListener('click', showContact);
-    btnLogin.addEventListener('click', showLogin);
-
-    // Свайп на всей странице
+    // Показываем Contact по свайпу вправо, Login — влево
     let touchStartX = 0;
     let touchEndX = 0;
     const swipeThreshold = 50;
@@ -189,6 +135,33 @@
         }
       }
     }
+
+    function showContact() {
+      formContact.classList.add('active');
+      formLogin.classList.remove('active');
+      welcomeMessage.classList.remove('active');
+    }
+
+    function showLogin() {
+      formContact.classList.remove('active');
+      formLogin.classList.add('active');
+      welcomeMessage.classList.remove('active');
+    }
+
+    // Простейшая авторизация
+    formLogin.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('loginName').value.trim();
+      const password = document.getElementById('loginPassword').value;
+
+      if (name === 'admin' && password === '1234') {
+        formLogin.classList.remove('active');
+        welcomeMessage.classList.add('active');
+        welcomeMessage.textContent = `Welcome, ${name}!`;
+      } else {
+        alert('Invalid credentials. Try admin / 1234');
+      }
+    });
   </script>
 </body>
 </html>
