@@ -1,36 +1,43 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Авторизация — Successful People Club</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <title>Successful People Club — Авторизация</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       margin: 0;
-      padding: 40px 10px 0;
       font-family: Arial, sans-serif;
       background: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding-top: 40px;
     }
 
     img {
       max-width: 320px;
+      height: auto;
       margin-bottom: 0;
       cursor: pointer;
     }
 
     form {
-      margin-top: 0;
       display: none;
       flex-direction: column;
       width: 300px;
       max-width: 90%;
+      margin-top: 20px; /* ОПУСКАЕМ форму вниз */
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
     form.active {
       display: flex;
+      opacity: 1;
+      transform: translateY(0);
+      margin-top: 20px; /* ТО ЖЕ САМОЕ для активной формы */
     }
 
     input {
@@ -61,22 +68,22 @@
       color: #610000;
       font-weight: bold;
       font-size: 14px;
-      margin-top: 15px;
       display: none;
       text-align: center;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
   <!-- Логотип -->
-  <img src="logo.svg" id="logo" alt="Successful People Club">
+  <img src="logo.svg" id="logo" alt="Successful People Club" />
 
   <!-- Форма заявки -->
   <form id="formContact" class="active" action="https://formbold.com/s/9xQ4W" method="POST">
-    <input type="text" name="name" placeholder="Name" required>
-    <input type="email" name="email" placeholder="E-mail" required>
-    <input type="hidden" name="_captcha" value="false">
+    <input type="text" name="name" placeholder="Name" required />
+    <input type="email" name="email" placeholder="E-mail" required />
+    <input type="hidden" name="_captcha" value="false" />
     <button type="submit" class="submit-btn">Contact us</button>
   </form>
 
@@ -85,8 +92,8 @@
 
   <!-- Форма авторизации -->
   <form id="formLogin">
-    <input type="text" id="loginName" placeholder="Login" required>
-    <input type="password" id="loginPassword" placeholder="Password" required>
+    <input type="text" id="loginName" placeholder="Login" required />
+    <input type="password" id="loginPassword" placeholder="Password" required />
     <button type="submit" class="submit-btn">Authorization</button>
   </form>
 
@@ -98,29 +105,24 @@
 
     const users = [
       { name: 'admin', password: '1234' },
-      { name: 'Melana', password: '1234' },
-      { name: 'Medina', password: '1234' },
-      { name: 'test', password: 'test' }
+      { name: 'user', password: 'pass' }
     ];
 
-    // Переключение форм по клику на логотип
     logo.addEventListener('click', () => {
-      const contactVisible = formContact.classList.contains('active');
-      formContact.classList.toggle('active', !contactVisible);
-      formLogin.classList.toggle('active', contactVisible);
+      const isContactVisible = formContact.classList.contains('active');
+      formContact.classList.toggle('active', !isContactVisible);
+      formLogin.classList.toggle('active', isContactVisible);
       errorMessage.style.display = 'none';
     });
 
-    // Обработка формы авторизации
     formLogin.addEventListener('submit', function (e) {
       e.preventDefault();
-
       const name = document.getElementById('loginName').value.trim();
       const password = document.getElementById('loginPassword').value;
 
-      const isValid = users.some(user => user.name === name && user.password === password);
+      const validUser = users.find(user => user.name === name && user.password === password);
 
-      if (isValid) {
+      if (validUser) {
         errorMessage.style.display = 'none';
         window.location.href = 'success.html';
       } else {
