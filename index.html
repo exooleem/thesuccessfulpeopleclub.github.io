@@ -27,27 +27,38 @@
       display: flex;
       align-items: center;
       margin-bottom: 30px;
+      font-family: 'Arial', sans-serif;
     }
 
     .toggle-label {
-      margin: 0 10px;
       font-size: 14px;
+      color: #444;
+      opacity: 0.8;
+      transition: color 0.3s ease;
     }
 
-    .toggle-switch {
+    .toggle-left {
+      margin-right: 12px;
+    }
+
+    .toggle-right {
+      margin-left: 12px;
+    }
+
+    .elegant-switch {
       position: relative;
       display: inline-block;
-      width: 60px;
-      height: 30px;
+      width: 50px;
+      height: 24px;
     }
 
-    .toggle-switch input {
+    .elegant-switch input {
       opacity: 0;
       width: 0;
       height: 0;
     }
 
-    .slider {
+    .elegant-switch .slider {
       position: absolute;
       cursor: pointer;
       top: 0; left: 0;
@@ -55,26 +66,28 @@
       background-color: #ccc;
       transition: 0.4s;
       border-radius: 30px;
+      box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
     }
 
-    .slider:before {
+    .elegant-switch .slider:before {
       position: absolute;
       content: "";
-      height: 24px;
-      width: 24px;
+      height: 18px;
+      width: 18px;
       left: 3px;
       bottom: 3px;
       background-color: white;
       transition: 0.4s;
       border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
     }
 
-    .toggle-switch input:checked + .slider {
+    .elegant-switch input:checked + .slider {
       background-color: #610000;
     }
 
-    .toggle-switch input:checked + .slider:before {
-      transform: translateX(30px);
+    .elegant-switch input:checked + .slider:before {
+      transform: translateX(26px);
     }
 
     form {
@@ -118,12 +131,12 @@
   <img src="logo.svg" alt="Successful People Club Logo" />
 
   <div class="toggle-wrapper">
-    <span class="toggle-label">New User</span>
-    <label class="toggle-switch">
+    <span class="toggle-label toggle-left">New User</span>
+    <label class="elegant-switch">
       <input type="checkbox" id="formToggle">
       <span class="slider"></span>
     </label>
-    <span class="toggle-label">Member Login</span>
+    <span class="toggle-label toggle-right">Member Login</span>
   </div>
 
   <!-- Форма 1: Новая заявка -->
@@ -158,4 +171,4 @@
     });
   </script>
 </body>
-</html>
+<html>/
