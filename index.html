@@ -108,8 +108,12 @@
     const formLogin = document.getElementById('formLogin');
     const welcomeMessage = document.getElementById('welcomeMessage');
 
-    // Переключение форм по клику в любом месте экрана
-    document.addEventListener('click', () => {
+    // Переключение форм — только если клик вне элементов формы
+    document.addEventListener('click', (e) => {
+      const tag = e.target.tagName.toLowerCase();
+      const ignoreTags = ['input', 'button', 'form', 'label', 'textarea', 'select'];
+      if (ignoreTags.includes(tag)) return;
+
       const contactVisible = formContact.classList.contains('active');
       formContact.classList.toggle('active', !contactVisible);
       formLogin.classList.toggle('active', contactVisible);
