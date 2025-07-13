@@ -84,7 +84,7 @@
 
   <!-- Login Form -->
   <form id="formLogin">
-    <input type="text" id="loginName" placeholder="Login" required />
+    <input type="text" id="loginName" placeholder="Name" required />
     <input type="password" id="loginPassword" placeholder="Password" required />
     <button class="submit-btn" type="submit">Authorization</button>
   </form>
@@ -100,19 +100,46 @@
       formLogin.classList.toggle('active', contactVisible);
     }
 
+    // Клик по логотипу (ПК) — переключение форм
     logo.addEventListener('click', toggleForms);
 
-    // Авторизация с редиректом
+    // Свайп на мобильных — переключение форм
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const swipeThreshold = 50;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diffX = touchEndX - touchStartX;
+      if (Math.abs(diffX) > swipeThreshold) {
+        toggleForms();
+      }
+    }, { passive: true });
+
+    // Массив пользователей для авторизации
+    const users = [
+      { name: 'admin', password: '1234' },
+      { name: 'Melana', password: 'Melana' },
+      { name: 'Medina', password: 'Medina' },
+    ];
+
+    // Авторизация с проверкой пользователей и редиректом
     formLogin.addEventListener('submit', function (e) {
       e.preventDefault();
+
       const name = document.getElementById('loginName').value.trim();
       const password = document.getElementById('loginPassword').value;
 
-      if (name === 'admin' && password === '1234') {
-        // Редирект на success.html
+      const validUser = users.find(user => user.name === name && user.password === password);
+
+      if (validUser) {
         window.location.href = 'success.html';
       } else {
-        alert('Invalid credentials. Try admin / 1234');
+        alert('Invalid credentials. Try again.');
       }
     });
   </script>
