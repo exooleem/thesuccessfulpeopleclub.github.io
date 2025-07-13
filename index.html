@@ -32,6 +32,7 @@
       width: 300px;
       max-width: 90%;
       position: relative;
+      min-height: 200px;
     }
 
     form {
@@ -43,14 +44,12 @@
       flex-direction: column;
       opacity: 0;
       pointer-events: none;
-      transform: none;
-      transition: opacity 0.5s ease-in-out;
+      transition: opacity 0.3s ease-in-out;
     }
 
     form.active {
       opacity: 1;
       pointer-events: auto;
-      transform: translateY(0);
       position: relative;
     }
 
@@ -96,8 +95,10 @@
 </head>
 <body>
 
+  <!-- Логотип -->
   <img src="logo.svg" id="logo" alt="Successful People Club" />
 
+  <!-- Формы -->
   <div class="form-wrapper">
     <!-- Форма заявки -->
     <form id="formContact" class="active" action="https://formbold.com/s/9xQ4W" method="POST" novalidate>
@@ -109,7 +110,7 @@
 
     <!-- Форма авторизации -->
     <form id="formLogin" novalidate>
-      <input type="text" id="loginName" placeholder="Login" required />
+      <input type="text" id="loginName" placeholder="Name" required />
       <input type="password" id="loginPassword" placeholder="Password" required />
       <button type="submit" class="submit-btn">Authorization</button>
     </form>
@@ -125,6 +126,8 @@
 
     const users = [
       { name: 'admin', password: '1234' },
+      { name: 'Medina', password: '1234' },
+      { name: 'Muslim', password: '1234' },
       { name: 'user', password: 'pass' }
     ];
 
@@ -158,7 +161,7 @@
         errorMessage.classList.remove('visible');
         window.location.href = 'success.html';
       } else {
-        errorMessage.textContent = 'Invalid login or password.';
+        errorMessage.textContent = 'Invalid name or password.';
         errorMessage.classList.add('visible');
       }
     });
