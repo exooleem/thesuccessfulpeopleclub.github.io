@@ -5,47 +5,48 @@
   <title>Successful People Club — Авторизация</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #fff;
-
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-
       height: 100vh;
       padding: 0 10px;
-      box-sizing: border-box;
     }
 
     img {
       max-width: 320px;
       height: auto;
-      margin-bottom: 0;
       cursor: pointer;
     }
 
-    form {
-      flex-direction: column;
+    .form-container {
+      position: relative;
       width: 300px;
       max-width: 90%;
       margin-top: 20px;
+    }
 
+    form {
+      display: none;
+      flex-direction: column;
+      width: 100%;
       opacity: 0;
       transform: translateY(10px);
-      pointer-events: none;
-
       transition: opacity 0.4s ease, transform 0.4s ease;
-      position: absolute; /* чтобы формы накладывались */
     }
 
     form.active {
+      display: flex;
       opacity: 1;
       transform: translateY(0);
-      pointer-events: auto;
-      position: static;
     }
 
     input {
@@ -78,10 +79,9 @@
       font-size: 14px;
       text-align: center;
       margin-top: 10px;
-
       opacity: 0;
       transition: opacity 0.3s ease;
-      height: 18px; /* чтобы место под сообщение всегда занималось */
+      height: 18px;
     }
 
     #errorMessage.visible {
@@ -94,23 +94,25 @@
   <!-- Логотип -->
   <img src="logo.svg" id="logo" alt="Successful People Club" />
 
-  <!-- Форма заявки -->
-  <form id="formContact" class="active" action="https://formbold.com/s/9xQ4W" method="POST" novalidate>
-    <input type="text" name="name" placeholder="Name" required />
-    <input type="email" name="email" placeholder="E-mail" required />
-    <input type="hidden" name="_captcha" value="false" />
-    <button type="submit" class="submit-btn">Contact us</button>
-  </form>
+  <div class="form-container">
+    <!-- Форма заявки -->
+    <form id="formContact" class="active" action="https://formbold.com/s/9xQ4W" method="POST" novalidate>
+      <input type="text" name="name" placeholder="Name" required />
+      <input type="email" name="email" placeholder="E-mail" required />
+      <input type="hidden" name="_captcha" value="false" />
+      <button type="submit" class="submit-btn">Contact us</button>
+    </form>
 
-  <!-- Сообщение об ошибке -->
-  <div id="errorMessage"></div>
+    <!-- Сообщение об ошибке -->
+    <div id="errorMessage"></div>
 
-  <!-- Форма авторизации -->
-  <form id="formLogin" novalidate>
-    <input type="text" id="loginName" placeholder="Login" required />
-    <input type="password" id="loginPassword" placeholder="Password" required />
-    <button type="submit" class="submit-btn">Authorization</button>
-  </form>
+    <!-- Форма авторизации -->
+    <form id="formLogin" novalidate>
+      <input type="text" id="loginName" placeholder="Login" required />
+      <input type="password" id="loginPassword" placeholder="Password" required />
+      <button type="submit" class="submit-btn">Authorization</button>
+    </form>
+  </div>
 
   <script>
     const logo = document.getElementById('logo');
@@ -123,11 +125,11 @@
       { name: 'user', password: 'pass' }
     ];
 
-    // Переключение между формами с анимацией
+    // Переключение между формами
     logo.addEventListener('click', () => {
       const contactVisible = formContact.classList.contains('active');
 
-      if(contactVisible){
+      if (contactVisible) {
         formContact.classList.remove('active');
         formLogin.classList.add('active');
       } else {
@@ -139,7 +141,7 @@
       errorMessage.classList.remove('visible');
     });
 
-    // Обработка формы авторизации с анимацией ошибки
+    // Обработка авторизации
     formLogin.addEventListener('submit', (e) => {
       e.preventDefault();
 
@@ -148,7 +150,7 @@
 
       const validUser = users.find(u => u.name === name && u.password === password);
 
-      if(validUser){
+      if (validUser) {
         errorMessage.textContent = '';
         errorMessage.classList.remove('visible');
         window.location.href = 'success.html';
