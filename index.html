@@ -2,68 +2,97 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Авторизация</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Successful People Club — Вход</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
       background: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 40px 10px;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding-top: 40px;
+      user-select: none;
+      touch-action: manipulation;
     }
+
     img {
       max-width: 320px;
-      margin-bottom: 30px;
+      height: auto;
+      margin-bottom: 0;
       cursor: pointer;
     }
+
     form {
+      margin-top: 0;
       display: none;
       flex-direction: column;
       width: 300px;
       max-width: 90%;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
+
     form.active {
       display: flex;
+      opacity: 1;
+      transform: translateY(0);
+      margin-top: 0;
     }
-    input {
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
       padding: 10px;
       margin-bottom: 15px;
-      font-size: 14px;
       border: 1px solid #ccc;
       border-radius: 4px;
+      font-size: 14px;
     }
+
     button.submit-btn {
       padding: 12px;
-      background: #610000;
+      background-color: #610000;
       color: white;
-      font-weight: bold;
       font-size: 16px;
       border: none;
       border-radius: 30px;
       cursor: pointer;
+      font-weight: bold;
       transition: background 0.3s ease;
     }
+
     button.submit-btn:hover {
-      background: #660018;
+      background-color: #660018;
     }
-    #errorMessage {
+
+    .error-message {
+      display: none;
       color: #610000;
       font-weight: bold;
       margin-bottom: 10px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
       text-align: center;
-      visibility: hidden;
     }
-    #errorMessage.show {
-      visibility: visible;
+
+    .error-message.show {
+      display: block;
+      opacity: 1;
     }
   </style>
 </head>
 <body>
 
-  <img id="logo" src="logo.svg" alt="Logo" />
+  <!-- Логотип -->
+  <img id="logo" src="logo.svg" alt="Successful People Club Logo" />
 
+  <!-- Contact Form -->
   <form id="formContact" class="active" action="https://formbold.com/s/9xQ4W" method="POST">
     <input type="text" name="name" placeholder="Name" required />
     <input type="email" name="email" placeholder="E-mail" required />
@@ -71,54 +100,60 @@
     <button class="submit-btn" type="submit">Contact us</button>
   </form>
 
-  <div id="errorMessage">Invalid login or password.</div>
+  <!-- Ошибка -->
+  <div id="errorMessage" class="error-message">Invalid login or password.</div>
 
+  <!-- Login Form -->
   <form id="formLogin">
     <input type="text" id="loginName" placeholder="Login" required />
     <input type="password" id="loginPassword" placeholder="Password" required />
     <button class="submit-btn" type="submit">Authorization</button>
   </form>
 
-<script>
-  const formContact = document.getElementById('formContact');
-  const formLogin = document.getElementById('formLogin');
-  const logo = document.getElementById('logo');
-  const errorMessage = document.getElementById('errorMessage');
+  <script>
+    const formContact = document.getElementById('formContact');
+    const formLogin = document.getElementById('formLogin');
+    const logo = document.getElementById('logo');
+    const errorMessage = document.getElementById('errorMessage');
 
-  function toggleForms() {
-    const contactVisible = formContact.classList.contains('active');
-    formContact.classList.toggle('active', !contactVisible);
-    formLogin.classList.toggle('active', contactVisible);
-    errorMessage.classList.remove('show');
-  }
-
-  logo.addEventListener('click', toggleForms);
-
-  const users = [
-    { name: 'admin', password: '1234' },
-    { name: 'user2', password: 'pass2' },
-    { name: 'john', password: 'doe123' }
-  ];
-
-  formLogin.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const name = document.getElementById('loginName').value.trim();
-    const password = document.getElementById('loginPassword').value;
-
-    const validUser = users.find(u => u.name === name && u.password === password);
-
-    if (validUser) {
+    function toggleForms() {
+      const contactVisible = formContact.classList.contains('active');
+      formContact.classList.toggle('active', !contactVisible);
+      formLogin.classList.toggle('active', contactVisible);
       errorMessage.classList.remove('show');
-      window.location.href = 'success.html';
-    } else {
-      errorMessage.classList.add('show');
-      setTimeout(() => {
-        errorMessage.classList.remove('show');
-      }, 3000);
+      errorMessage.style.display = 'none';
     }
-  });
-</script>
 
+    logo.addEventListener('click', toggleForms);
+
+    const users = [
+      { name: 'admin', password: '1234' },
+      { name: 'user2', password: 'pass2' },
+      { name: 'john', password: 'doe123' }
+    ];
+
+    formLogin.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('loginName').value.trim();
+      const password = document.getElementById('loginPassword').value;
+
+      const validUser = users.find(user => user.name === name && user.password === password);
+
+      if (validUser) {
+        errorMessage.classList.remove('show');
+        errorMessage.style.display = 'none';
+        window.location.href = 'success.html';
+      } else {
+        errorMessage.classList.add('show');
+        setTimeout(() => {
+          errorMessage.classList.remove(how');
+          setTimeout(() => {
+            errorMessage.style.display = 'none';
+          }, 500);
+        }, 3000);
+      }
+    });
+  </script>
 </body>
 </html>
