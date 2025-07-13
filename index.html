@@ -1,27 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <title>Successful People Club — Вход</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Авторизация — Successful People Club</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
       margin: 0;
+      padding: 40px 10px 0;
       font-family: Arial, sans-serif;
       background: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      padding-top: 40px;
-      user-select: none;
-      touch-action: manipulation;
     }
 
     img {
       max-width: 320px;
-      height: auto;
       margin-bottom: 0;
       cursor: pointer;
     }
@@ -32,26 +27,18 @@
       flex-direction: column;
       width: 300px;
       max-width: 90%;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
     form.active {
       display: flex;
-      opacity: 1;
-      transform: translateY(0);
-      margin-top: 0;
     }
 
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
+    input {
       padding: 10px;
       margin-bottom: 15px;
+      font-size: 14px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      font-size: 14px;
     }
 
     button.submit-btn {
@@ -70,90 +57,76 @@
       background-color: #660018;
     }
 
-    .error-message {
-      display: none;
+    #errorMessage {
       color: #610000;
       font-weight: bold;
-      margin-bottom: 10px;
       font-size: 14px;
-      opacity: 0;
-      transition: opacity 0.5s ease;
+      margin-top: 15px;
+      display: none;
       text-align: center;
-    }
-
-    .error-message.show {
-      display: block;
-      opacity: 1;
     }
   </style>
 </head>
 <body>
 
   <!-- Логотип -->
-  <img id="logo" src="logo.svg" alt="Successful People Club Logo" />
+  <img src="logo.svg" id="logo" alt="Successful People Club">
 
-  <!-- Contact Form -->
+  <!-- Форма заявки -->
   <form id="formContact" class="active" action="https://formbold.com/s/9xQ4W" method="POST">
-    <input type="text" name="name" placeholder="Name" required />
-    <input type="email" name="email" placeholder="E-mail" required />
-    <input type="hidden" name="_captcha" value="false" />
-    <button class="submit-btn" type="submit">Contact us</button>
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="email" name="email" placeholder="E-mail" required>
+    <input type="hidden" name="_captcha" value="false">
+    <button type="submit" class="submit-btn">Contact us</button>
   </form>
 
-  <!-- Ошибка -->
-  <div id="errorMessage" class="error-message">Invalid login or password.</div>
+  <!-- Сообщение об ошибке -->
+  <div id="errorMessage">Invalid login or password.</div>
 
-  <!-- Login Form -->
+  <!-- Форма авторизации -->
   <form id="formLogin">
-    <input type="text" id="loginName" placeholder="Login" required />
-    <input type="password" id="loginPassword" placeholder="Password" required />
-    <button class="submit-btn" type="submit">Authorization</button>
+    <input type="text" id="loginName" placeholder="Login" required>
+    <input type="password" id="loginPassword" placeholder="Password" required>
+    <button type="submit" class="submit-btn">Authorization</button>
   </form>
 
   <script>
+    const logo = document.getElementById('logo');
     const formContact = document.getElementById('formContact');
     const formLogin = document.getElementById('formLogin');
-    const logo = document.getElementById('logo');
     const errorMessage = document.getElementById('errorMessage');
-
-    function toggleForms() {
-      const contactVisible = formContact.classList.contains('active');
-      formContact.classList.toggle('active', !contactVisible);
-      formLogin.classList.toggle('active', contactVisible);
-      errorMessage.classList.remove('show');
-      errorMessage.style.display = 'none';
-    }
-
-    logo.addEventListener('click', toggleForms);
 
     const users = [
       { name: 'admin', password: '1234' },
-      { name: 'Melana', password: '12345' },
-      { name: 'Medina', password: '12345' }
+      { name: 'test', password: 'test' }
     ];
 
+    // Переключение форм по клику на логотип
+    logo.addEventListener('click', () => {
+      const contactVisible = formContact.classList.contains('active');
+      formContact.classList.toggle('active', !contactVisible);
+      formLogin.classList.toggle('active', contactVisible);
+      errorMessage.style.display = 'none';
+    });
+
+    // Обработка формы авторизации
     formLogin.addEventListener('submit', function (e) {
       e.preventDefault();
 
       const name = document.getElementById('loginName').value.trim();
       const password = document.getElementById('loginPassword').value;
 
-      const validUser = users.find(user => user.name === name && user.password === password);
+      const isValid = users.some(user => user.name === name && user.password === password);
 
-      if (validUser) {
-        errorMessage.classList.remove('show');
+      if (isValid) {
         errorMessage.style.display = 'none';
         window.location.href = 'success.html';
       } else {
-        errorMessage.classList.add('show');
-        setTimeout(() => {
-          errorMessage.classList.remove('show');
-          setTimeout(() => {
-            errorMessage.style.display = 'none';
-          }, 500);
-        }, 3000);
+        errorMessage.textContent = 'Invalid login or password.';
+        errorMessage.style.display = 'block';
       }
     });
   </script>
+
 </body>
 </html>
