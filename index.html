@@ -67,6 +67,22 @@
     button.submit-btn:hover {
       background-color: #660018;
     }
+
+    .error-message {
+      display: none;
+      color: #610000;
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      text-align: center;
+    }
+
+    .error-message.show {
+      display: block;
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -82,9 +98,12 @@
     <button class="submit-btn" type="submit">Contact us</button>
   </form>
 
+  <!-- Ошибка -->
+  <div id="errorMessage" class="error-message">Invalid login or password.</div>
+
   <!-- Login Form -->
   <form id="formLogin">
-    <input type="text" id="loginName" placeholder="Name" required />
+    <input type="text" id="loginName" placeholder="Login" required />
     <input type="password" id="loginPassword" placeholder="Password" required />
     <button class="submit-btn" type="submit">Authorization</button>
   </form>
@@ -93,41 +112,27 @@
     const formContact = document.getElementById('formContact');
     const formLogin = document.getElementById('formLogin');
     const logo = document.getElementById('logo');
+    const errorMessage = document.getElementById('errorMessage');
 
     function toggleForms() {
       const contactVisible = formContact.classList.contains('active');
       formContact.classList.toggle('active', !contactVisible);
       formLogin.classList.toggle('active', contactVisible);
+      errorMessage.classList.remove('show');
+      errorMessage.style.display = 'none';
     }
 
-    // Клик по логотипу (ПК) — переключение форм
+    // Клик по логотипу — и на мобильных, и на ПК
     logo.addEventListener('click', toggleForms);
 
-    // Свайп на мобильных — переключение форм
-    let touchStartX = 0;
-    let touchEndX = 0;
-    const swipeThreshold = 50;
-
-    document.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    document.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      const diffX = touchEndX - touchStartX;
-      if (Math.abs(diffX) > swipeThreshold) {
-        toggleForms();
-      }
-    }, { passive: true });
-
-    // Массив пользователей для авторизации
+    // Пользователи
     const users = [
       { name: 'admin', password: '1234' },
-      { name: 'Melana', password: 'Melana' },
-      { name: 'Medina', password: 'Medina' },
+      { name: 'user2', password: 'pass2' },
+      { name: 'john', password: 'doe123' }
     ];
 
-    // Авторизация с проверкой пользователей и редиректом
+    // Обработка авторизации
     formLogin.addEventListener('submit', function (e) {
       e.preventDefault();
 
@@ -137,9 +142,17 @@
       const validUser = users.find(user => user.name === name && user.password === password);
 
       if (validUser) {
+        errorMessage.classList.remove('show');
+        errorMessage.style.display = 'none';
         window.location.href = 'success.html';
       } else {
-        alert('Incorrect login or password');
+        errorMessage.classList.add('show');
+        setTimeout(() => {
+          errorMessage.classList.remove('show');
+          setTimeout(() => {
+            errorMessage.style.display = 'none';
+          }, 500);
+        }, 3000);
       }
     });
   </script>
