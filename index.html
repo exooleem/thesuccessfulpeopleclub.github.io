@@ -9,16 +9,21 @@
 box-sizing: border-box;
 }
 
-body {
+html, body {
+height: 100%;
 margin: 0;
 font-family: Arial, sans-serif;
 background: #fff;
+}
+
+body {
 display: flex;
 flex-direction: column;
-align-items: center;
-justify-content: center;
+justify-content: center; /* по вертикали */
+align-items: center; /* по горизонтали */
 height: 100vh;
 padding: 0 10px;
+text-align: center;
 }
 
 img {
@@ -26,31 +31,28 @@ max-width: 320px;
 height: auto;
 cursor: pointer;
 margin-bottom: 20px;
+user-select: none;
 }
 
 .form-wrapper {
-width: 300px;
+width: 320px;
 max-width: 90%;
-position: relative;
-min-height: 240px;
+display: flex;
+flex-direction: column;
+align-items: center;
 }
 
 form {
-position: absolute;
-top: 0;
-left: 0;
 width: 100%;
-display: flex;
+display: none;
 flex-direction: column;
 opacity: 0;
-pointer-events: none;
 transition: opacity 0.5s ease-in-out;
 }
 
 form.active {
+display: flex;
 opacity: 1;
-pointer-events: auto;
-position: relative;
 }
 
 input {
@@ -59,6 +61,8 @@ margin-bottom: 15px;
 font-size: 14px;
 border: 1px solid #ccc;
 border-radius: 4px;
+width: 100%;
+box-sizing: border-box;
 }
 
 /* Уменьшаем отступ кнопки в форме авторизации */
@@ -76,6 +80,8 @@ border-radius: 30px;
 cursor: pointer;
 font-weight: bold;
 transition: background 0.5s ease;
+width: 100%;
+box-sizing: border-box;
 }
 
 button.submit-btn:hover {
@@ -86,12 +92,10 @@ background-color: #660018;
 color: #610000;
 font-weight: bold;
 font-size: 14px;
-text-align: center;
 margin-bottom: 8px;
 opacity: 0;
 transition: opacity 0.3s ease, transform 0.3s ease;
 transform: translateY(-10px);
-height: auto;
 min-height: 18px;
 }
 
@@ -173,7 +177,6 @@ window.location.href = 'success.html';
 errorMessage.textContent = 'Invalid login or password.';
 errorMessage.classList.add('visible');
 
-// Скрываем ошибку через 3 секунды
 setTimeout(() => {
 errorMessage.classList.remove('visible');
 }, 3000);
