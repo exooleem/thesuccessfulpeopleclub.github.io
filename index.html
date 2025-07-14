@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <title>Successful People Club</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="[#alias|fonts.googleapis.com/css2?famil...|https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap]" rel="stylesheet">
 <style>
 * {
 box-sizing: border-box;
@@ -11,26 +12,34 @@ box-sizing: border-box;
 
 body {
 margin: 0;
-font-family: Arial, sans-serif;
-background: #fff;
+padding: 0;
+font-family: 'Inter', sans-serif;
+background-color: #fff;
+color: #111;
+height: 100vh;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-height: 100vh;
-padding: 0 10px;
 }
 
-img {
-max-width: 320px;
+img#logo {
+width: 160px;
 height: auto;
+margin-bottom: 25px;
 cursor: pointer;
-margin-bottom: 20px;
+}
+
+h2.welcome {
+font-size: 20px;
+color: #000;
+font-weight: 500;
+margin-bottom: 30px;
 }
 
 .form-wrapper {
-width: 300px;
-max-width: 90%;
+width: 100%;
+max-width: 320px;
 position: relative;
 min-height: 240px;
 }
@@ -44,7 +53,7 @@ display: flex;
 flex-direction: column;
 opacity: 0;
 pointer-events: none;
-transition: opacity 0.5s ease-in-out;
+transition: opacity 0.5s ease;
 }
 
 form.active {
@@ -54,40 +63,45 @@ position: relative;
 }
 
 input {
-padding: 10px;
-margin-bottom: 15px;
+padding: 12px;
+margin-bottom: 16px;
 font-size: 14px;
 border: 1px solid #ccc;
-border-radius: 4px;
+border-radius: 6px;
+transition: border 0.3s ease;
 }
 
-/* Уменьшаем отступ кнопки в форме авторизации */
+input:focus {
+border-color: #610000;
+outline: none;
+}
+
+button.submit-btn {
+padding: 14px;
+background-color: #610000;
+color: white;
+font-size: 15px;
+border: none;
+border-radius: 30px;
+cursor: pointer;
+font-weight: 600;
+transition: background 0.3s ease;
+}
+
+button.submit-btn:hover {
+background-color: #7a0015;
+}
+
 #formLogin .submit-btn {
 margin-bottom: 4px;
 }
 
-button.submit-btn {
-padding: 12px;
-background-color: #610000;
-color: white;
-font-size: 16px;
-border: none;
-border-radius: 30px;
-cursor: pointer;
-font-weight: bold;
-transition: background 0.5s ease;
-}
-
-button.submit-btn:hover {
-background-color: #660018;
-}
-
 #errorMessage {
 color: #610000;
-font-weight: bold;
+font-weight: 500;
 font-size: 14px;
 text-align: center;
-margin-top: 2px; /* уменьшенный отступ сверху */
+margin-top: 4px;
 opacity: 0;
 transition: opacity 0.3s ease, transform 0.3s ease;
 transform: translateY(0);
@@ -96,7 +110,7 @@ height: auto;
 
 #errorMessage.visible {
 opacity: 1;
-transform: translateY(-4px);
+transform: translateY(-3px);
 }
 </style>
 </head>
@@ -105,11 +119,14 @@ transform: translateY(-4px);
 <!— Логотип —>
 <img src="logo.svg" id="logo" alt="Successful People Club" />
 
+<!— Приветствие —>
+<h2 class="welcome">Welcome to the Club</h2>
+
 <!— Формы —>
 <div class="form-wrapper">
 
 <!— Форма заявки —>
-<form id="formContact" class="active" action="https://formbold.com/s/9xQ4W" method="POST" novalidate>
+<form id="formContact" class="active" action="formbold.com/s/9xQ4W" method="POST" novalidate>
 <input type="text" name="name" placeholder="Name" required />
 <input type="email" name="email" placeholder="E-mail" required />
 <input type="hidden" name="_captcha" value="false" />
@@ -121,7 +138,7 @@ transform: translateY(-4px);
 <input type="text" id="loginName" placeholder="Login" required />
 <input type="password" id="loginPassword" placeholder="Password" required />
 <button type="submit" class="submit-btn">Authorization</button>
-<div id="errorMessage"></div> <!— ошибка внутри формы —>
+<div id="errorMessage"></div>
 </form>
 
 </div>
@@ -172,7 +189,6 @@ window.location.href = 'shop.html';
 errorMessage.textContent = 'Invalid login or password.';
 errorMessage.classList.add('visible');
 
-// Скрываем ошибку через 3 секунды
 setTimeout(() => {
 errorMessage.classList.remove('visible');
 }, 3000);
