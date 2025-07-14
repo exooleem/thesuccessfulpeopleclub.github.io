@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Minimal Shop</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+
+body {
+background: #fff;
+color: #111;
+padding: 40px 20px;
+max-width: 900px;
+margin: 0 auto;
+}
+
+header {
+text-align: center;
+margin-bottom: 50px;
+}
+
+header h1 {
+font-size: 28px;
+letter-spacing: 2px;
+}
+
+.products {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+gap: 30px;
+}
+
+.product {
+border: 1px solid #ccc;
+border-radius: 8px;
+padding: 20px;
+text-align: center;
+transition: box-shadow 0.3s ease;
+}
+
+.product:hover {
+box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.product img {
+max-width: 100%;
+height: auto;
+margin-bottom: 15px;
+}
+
+.product h2 {
+font-size: 18px;
+margin-bottom: 10px;
+}
+
+.product p {
+font-size: 14px;
+margin-bottom: 15px;
+}
+
+.product button {
+background: #000;
+color: #fff;
+border: none;
+padding: 10px 20px;
+border-radius: 30px;
+cursor: pointer;
+font-size: 14px;
+}
+
+footer {
+margin-top: 60px;
+text-align: center;
+font-size: 14px;
+color: #999;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>MINIMAL SHOP</h1>
+<p>Лимитированные вещи для уверенных в себе</p>
+</header>
+
+<section class="products">
+<div class="product">
+<img src="via.placeholder.com/250x300" alt="Product 1">
+<h2>Футболка White 001</h2>
+<p>100% хлопок, премиум-крой</p>
+<button>Купить</button>
+</div>
+
+<div class="product">
+<img src="via.placeholder.com/250x300" alt="Product 2">
+<h2>Футболка Black 001</h2>
+<p>Ультра-минимализм. Чёрный шик</p>
+<button>Купить</button>
+</div>
+</section>
+
+<footer>
+© 2025 Successful People Club
+</footer>
+
+</body>
+</html>
