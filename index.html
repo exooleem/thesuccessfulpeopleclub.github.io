@@ -28,15 +28,6 @@ cursor: pointer;
 margin-bottom: 20px;
 }
 
-h2.welcome {
-color: #000;
-margin-bottom: 20px;
-font-size: 20px;
-text-align: center;
-font-weight: 500;
-letter-spacing: 0.5px;
-}
-
 .form-wrapper {
 width: 300px;
 max-width: 90%;
@@ -70,6 +61,7 @@ border: 1px solid #ccc;
 border-radius: 4px;
 }
 
+/* Уменьшаем отступ кнопки в форме авторизации */
 #formLogin .submit-btn {
 margin-bottom: 4px;
 }
@@ -95,7 +87,7 @@ color: #610000;
 font-weight: bold;
 font-size: 14px;
 text-align: center;
-margin-top: 2px;
+margin-top: 2px; /* уменьшенный отступ сверху */
 opacity: 0;
 transition: opacity 0.3s ease, transform 0.3s ease;
 transform: translateY(0);
@@ -113,14 +105,11 @@ transform: translateY(-4px);
 <!— Логотип —>
 <img src="logo.svg" id="logo" alt="Successful People Club" />
 
-<!— Приветствие —>
-<h2 class="welcome">Welcome to the Club</h2>
-
 <!— Формы —>
 <div class="form-wrapper">
 
 <!— Форма заявки —>
-<form id="formContact" class="active" action="formbold.com/s/9xQ4W" method="POST" novalidate>
+<form id="formContact" class="active" action="https://formbold.com/s/9xQ4W" method="POST" novalidate>
 <input type="text" name="name" placeholder="Name" required />
 <input type="email" name="email" placeholder="E-mail" required />
 <input type="hidden" name="_captcha" value="false" />
@@ -132,7 +121,7 @@ transform: translateY(-4px);
 <input type="text" id="loginName" placeholder="Login" required />
 <input type="password" id="loginPassword" placeholder="Password" required />
 <button type="submit" class="submit-btn">Authorization</button>
-<div id="errorMessage"></div>
+<div id="errorMessage"></div> <!— ошибка внутри формы —>
 </form>
 
 </div>
@@ -183,6 +172,7 @@ window.location.href = 'shop.html';
 errorMessage.textContent = 'Invalid login or password.';
 errorMessage.classList.add('visible');
 
+// Скрываем ошибку через 3 секунды
 setTimeout(() => {
 errorMessage.classList.remove('visible');
 }, 3000);
