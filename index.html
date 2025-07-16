@@ -29,10 +29,11 @@
 
     .club-name {
       font-family: 'Times New Roman', serif;
-      font-size: 20px;
+      font-size: 24px;
       font-weight: normal;
       margin-bottom: 40px;
       text-align: center;
+      max-width: 360px;
     }
 
     .form-wrapper {
@@ -45,7 +46,8 @@
       flex-direction: column;
     }
 
-    input, textarea {
+    input,
+    textarea {
       padding: 12px;
       margin-bottom: 15px;
       font-size: 14px;
@@ -53,6 +55,13 @@
       border-radius: 4px;
       font-family: inherit;
       resize: none;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #610000;
+      outline: none;
     }
 
     button.submit-btn {
