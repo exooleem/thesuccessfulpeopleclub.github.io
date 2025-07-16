@@ -22,16 +22,16 @@
     }
 
     img {
-      max-width: 380px;
+      max-width: 180px;
       height: auto;
-      margin-bottom: 15px; /* увеличенный отступ */
+      margin-bottom: 15px;
     }
-
-    /* Убрали блок с классом club-name, поэтому его стили не нужны */
 
     .form-wrapper {
       width: 100%;
       max-width: 360px;
+      padding: 0 10px;
+      box-sizing: border-box;
     }
 
     form {
@@ -71,6 +71,30 @@
 
     button.submit-btn:hover {
       background-color: #7a0015;
+    }
+
+    /* Адаптивные стили для мобильных */
+    max-width: 400px {
+      body {
+        padding: 20px 10px;
+      }
+
+      img {
+        max-width: 100%;
+        margin-bottom: 15px;
+      }
+
+      .form-wrapper {
+        max-width: 100%;
+        padding: 0 10px;
+      }
+
+      input,
+      textarea,
+      button.submit-btn {
+        font-size: 16px;
+        padding: 14px;
+      }
     }
   </style>
 </head>
