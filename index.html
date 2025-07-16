@@ -1,184 +1,91 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<title>Successful People Club</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<style>
-* {
-box-sizing: border-box;
-}
+  <meta charset="UTF-8" />
+  <title>The Successful People Club</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-body {
-margin: 0;
-font-family: Arial, sans-serif;
-background: #fff;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-height: 100vh;
-padding: 0 10px;
-}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
 
-img {
-max-width: 320px;
-height: auto;
-cursor: pointer;
-margin-bottom: 20px;
-}
+    img {
+      max-width: 180px;
+      height: auto;
+      margin-bottom: 12px;
+    }
 
-.form-wrapper {
-width: 300px;
-max-width: 90%;
-position: relative;
-min-height: 240px;
-}
+    .club-name {
+      font-family: 'Times New Roman', serif;
+      font-size: 20px;
+      font-weight: normal;
+      margin-bottom: 40px;
+      text-align: center;
+    }
 
-form {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-display: flex;
-flex-direction: column;
-opacity: 0;
-pointer-events: none;
-transition: opacity 0.5s ease-in-out;
-}
+    .form-wrapper {
+      width: 100%;
+      max-width: 360px;
+    }
 
-form.active {
-opacity: 1;
-pointer-events: auto;
-position: relative;
-}
+    form {
+      display: flex;
+      flex-direction: column;
+    }
 
-input {
-padding: 10px;
-margin-bottom: 15px;
-font-size: 14px;
-border: 1px solid #ccc;
-border-radius: 4px;
-}
+    input, textarea {
+      padding: 12px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: inherit;
+      resize: none;
+    }
 
-/* Уменьшаем отступ кнопки в форме авторизации */
-#formLogin .submit-btn {
-margin-bottom: 4px;
-}
+    button.submit-btn {
+      padding: 14px;
+      background-color: #610000;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.4s ease;
+    }
 
-button.submit-btn {
-padding: 12px;
-background-color: #610000;
-color: white;
-font-size: 16px;
-border: none;
-border-radius: 30px;
-cursor: pointer;
-font-weight: bold;
-transition: background 0.5s ease;
-}
-
-button.submit-btn:hover {
-background-color: #660018;
-}
-
-#errorMessage {
-color: #610000;
-font-weight: bold;
-font-size: 14px;
-text-align: center;
-margin-top: 2px; /* уменьшенный отступ сверху */
-opacity: 0;
-transition: opacity 0.3s ease, transform 0.3s ease;
-transform: translateY(0);
-height: auto;
-}
-
-#errorMessage.visible {
-opacity: 1;
-transform: translateY(-4px);
-}
-</style>
+    button.submit-btn:hover {
+      background-color: #7a0015;
+    }
+  </style>
 </head>
 <body>
 
-<!— Логотип —>
-<img src="logo.svg" id="logo" alt="Successful People Club" />
+  <img src="logo.svg" alt="Successful People Club" />
+  <div class="club-name">The Successful People Club</div>
 
-<!— Формы —>
-<div class="form-wrapper">
-
-<!— Форма заявки —>
-<form id="formContact" class="active" action="https://formbold.com/s/9xQ4W" method="POST" novalidate>
-<input type="text" name="name" placeholder="Имя" required />
-<input type="email" name="email" placeholder="Почта" required />
-<input type="hidden" name="_captcha" value="false" />
-<button type="submit" class="submit-btn">Связаться с нами</button>
-</form>
-
-<!— Форма авторизации —>
-<form id="formLogin" novalidate>
-<input type="text" id="loginName" placeholder="Логин" required />
-<input type="password" id="loginPassword" placeholder="Пароль" required />
-<button type="submit" class="submit-btn">Войти</button>
-<div id="errorMessage"></div> <!— ошибка внутри формы —>
-</form>
-
-</div>
-
-<script>
-const logo = document.getElementById('logo');
-const formContact = document.getElementById('formContact');
-const formLogin = document.getElementById('formLogin');
-const errorMessage = document.getElementById('errorMessage');
-
-const users = [
-{ name: 'admin', password: '1234' },
-{ name: 'Medina', password: '1234' },
-{ name: 'Muslim', password: '1234' },
-{ name: 'user', password: 'pass' }
-];
-
-let showingContact = true;
-
-logo.addEventListener('click', () => {
-showingContact = !showingContact;
-
-if (showingContact) {
-formContact.classList.add('active');
-formLogin.classList.remove('active');
-} else {
-formLogin.classList.add('active');
-formContact.classList.remove('active');
-}
-
-errorMessage.textContent = '';
-errorMessage.classList.remove('visible');
-});
-
-formLogin.addEventListener('submit', (e) => {
-e.preventDefault();
-
-const name = document.getElementById('loginName').value.trim();
-const password = document.getElementById('loginPassword').value;
-
-const validUser = users.find(u => u.name === name && u.password === password);
-
-if (validUser) {
-errorMessage.textContent = '';
-errorMessage.classList.remove('visible');
-window.location.href = 'shop.html';
-} else {
-errorMessage.textContent = 'Неверный логин или пароль.';
-errorMessage.classList.add('visible');
-
-// Скрываем ошибку через 3 секунды
-setTimeout(() => {
-errorMessage.classList.remove('visible');
-}, 3000);
-}
-});
-</script>
+  <div class="form-wrapper">
+    <form action="https://formbold.com/s/9xQ4W" method="POST">
+      <input type="text" name="name" placeholder="Имя" required />
+      <input type="email" name="email" placeholder="Почта" required />
+      <textarea name="question" rows="4" placeholder="Ваш вопрос" required></textarea>
+      <input type="hidden" name="_captcha" value="false" />
+      <button type="submit" class="submit-btn">Связаться с нами</button>
+    </form>
+  </div>
 
 </body>
 </html>
