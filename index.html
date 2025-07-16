@@ -22,7 +22,7 @@
     }
 
     img {
-      max-width: 380px;
+      max-width: 180px;
       height: auto;
       margin-bottom: 15px;
     }
@@ -73,15 +73,16 @@
       background-color: #7a0015;
     }
 
-    /* Адаптивные стили для мобильных */
+    /* Адаптивные стили для мобильных устройств */
     max-width: 400px {
       body {
-        padding: 20px 10px;
+        padding: 30px 10px 60px; /* больше отступ снизу */
+        justify-content: flex-start; /* прижали вверх */
       }
 
       img {
         max-width: 100%;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
       }
 
       .form-wrapper {
