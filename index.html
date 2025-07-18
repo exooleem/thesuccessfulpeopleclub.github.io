@@ -1,128 +1,151 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<title>Successful People Club</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<style>
-* {
-box-sizing: border-box;
-}
-body {
-margin: 0;
-font-family: 'Georgia', serif;
-background: #ffffff;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-height: 100vh;
-}
-img {
-max-width: 360px;
-height: auto;
-margin-bottom: 40px;
-}
-.contact-button {
-padding: 6px 18px;
-background-color: black;
-color: white;
-font-size: 11px;
-border: none;
-border-radius: 16px;
-cursor: pointer;
-font-weight: 600;
-letter-spacing: 0.3px;
-transition: background 0.4s ease;
-}
-.contact-button:hover {
-background-color: #610000;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Successful People Club</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-/* Модальное окно */
-.overlay {
-position: fixed;
-top: 0; left: 0;
-width: 100vw;
-height: 100vh;
-background: rgba(0, 0, 0, 0.5);
-display: none;
-justify-content: center;
-align-items: center;
-z-index: 5;
-}
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Georgia', serif;
+      background: #ffffff;
+    }
 
-.form-popup {
-background: #fff;
-padding: 30px 25px;
-border-radius: 12px;
-width: 320px;
-box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-z-index: 10;
-}
+    .centered-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
 
-.form-popup h3 {
-margin-top: 0;
-font-size: 20px;
-margin-bottom: 20px;
-text-align: center;
-}
+    .centered-wrapper img {
+      max-width: 80%;
+      width: 280px;
+      height: auto;
+      margin-bottom: 30px;
+    }
 
-.form-popup input,
-.form-popup textarea {
-width: 100%;
-padding: 10px;
-margin-bottom: 15px;
-font-size: 14px;
-border: 1px solid #ccc;
-border-radius: 6px;
-}
+    .contact-button {
+      padding: 10px 24px;
+      background-color: #610000;
+      color: white;
+      font-size: 14px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      transition: background 0.3s ease;
+    }
 
-.form-popup button {
-width: 100%;
-padding: 12px;
-background: black;
-color: white;
-border: none;
-font-weight: bold;
-font-size: 15px;
-cursor: pointer;
-border-radius: 30px;
-transition: background 0.3s ease;
-}
+    .contact-button:hover {
+      background-color: #4d0000;
+    }
 
-.form-popup button:hover {
-background: #610000;
-}
-</style>
+    /* Модальное окно */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .form-popup {
+      background: white;
+      padding: 30px 25px;
+      border-radius: 12px;
+      width: 320px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .form-popup h3 {
+      margin-top: 0;
+      font-size: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-popup input,
+    .form-popup textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .form-popup button {
+      width: 100%;
+      padding: 12px;
+      background: #610000;
+      color: white;
+      border: none;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 30px;
+      transition: background 0.3s ease;
+    }
+
+    .form-popup button:hover {
+      background: #4d0000;
+    }
+
+    max-width: 480px {
+      .form-popup {
+        width: 90%;
+      }
+      .centered-wrapper img {
+        width: 220px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<img src="logo.svg" alt="Successful People Club" />
-<button class="contact-button" onclick="openForm()">Contact Us</button>
+  <div class="centered-wrapper">
+    <img src="logo.svg" alt="Successful People Club" />
+    <button class="contact-button" onclick="openForm()">Contact Us</button>
+  </div>
 
-<!— Модальное окно формы —>
-<div class="overlay" id="overlay" onclick="closeForm()">
-<div class="form-popup" onclick="event.stopPropagation()">
-<h3>Join the Club</h3>
-<form action="formbold.com/s/9xQ4W" method="POST">
-<input type="text" name="name" placeholder="Name" required />
-<input type="email" name="email" placeholder="Email" required />
-<textarea name="message" placeholder="Message" rows="4"></textarea>
-<input type="hidden" name="_captcha" value="false" />
-<button type="submit">Send</button>
-</form>
-</div>
-</div>
+  <!-- Модальное окно -->
+  <div class="overlay" id="overlay" onclick="closeForm()">
+    <div class="form-popup" onclick="event.stopPropagation()">
+      <h3>Join the Club</h3>
+      <form action="https://formbold.com/s/9xQ4W" method="POST">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <textarea name="message" placeholder="Message" rows="4"></textarea>
+        <input type="hidden" name="_captcha" value="false" />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </div>
 
-<script>
-function openForm() {
-document.getElementById("overlay").style.display = "flex";
-}
-function closeForm() {
-document.getElementById("overlay").style.display = "none";
-}
-</script>
+  <script>
+    function openForm() {
+      document.getElementById("overlay").style.display = "flex";
+    }
+
+    function closeForm() {
+      document.getElementById("overlay").style.display = "none";
+    }
+  </script>
 
 </body>
 </html>
