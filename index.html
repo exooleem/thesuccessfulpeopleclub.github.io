@@ -39,7 +39,6 @@
       transform: scale(1.03);
     }
 
-    /* Модальное окно */
     .overlay {
       position: fixed;
       top: 0; left: 0;
@@ -108,6 +107,14 @@
       background: #4d0000;
     }
 
+    #successMessage {
+      display: none;
+      text-align: center;
+      margin-top: 15px;
+      font-size: 15px;
+      color: green;
+    }
+
     max-width: 480px {
       .form-popup {
         width: 90%;
@@ -124,17 +131,16 @@
     <img src="logo.svg" alt="Successful People Club" onclick="openForm()" />
   </div>
 
-  <!-- Модальное окно -->
   <div class="overlay" id="overlay" onclick="closeForm()">
     <div class="form-popup" onclick="event.stopPropagation()">
       <h3>Contact us</h3>
-      <form action="https://formbold.com/s/9xQ4W" method="POST">
+      <form id="contactForm">
         <input type="text" name="name" placeholder="Name" required />
         <input type="email" name="email" placeholder="Email" required />
         <textarea name="message" placeholder="Message" rows="4"></textarea>
-        <input type="hidden" name="_captcha" value="false" />
         <button type="submit">Send</button>
       </form>
+      <div id="successMessage">Thank you! Your message has been sent.</div>
     </div>
   </div>
 
@@ -145,15 +151,42 @@
 
       overlay.style.display = "flex";
 
-      // Сброс и повтор анимации
+      // Сброс анимации
       popup.style.animation = "none";
-      popup.offsetHeight; // триггер перерисовки
+      popup.offsetHeight;
       popup.style.animation = "fadeInZoom 0.4s forwards";
     }
 
     function closeForm() {
       document.getElementById("overlay").style.display = "none";
     }
+
+    // Отправка формы через fetch (без перезагрузки)
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form);
+
+      fetch("https://formbold.com/s/9xQ4W", {
+        method: "POST",
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          form.reset();
+
+
+rm.style.display = "none";
+          document.getElementById("successMessage").style.display = "block";
+        } else {
+          alert("Something went wrong. Please try again later.");
+        }
+      })
+      .catch(error => {
+        alert("Error: " + error.message);
+      });
+    });
   </script>
 
 </body>
