@@ -58,6 +58,20 @@
       border-radius: 12px;
       width: 320px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: scale(0.9);
+      animation: fadeInZoom 0.4s forwards;
+    }
+
+    @keyframes fadeInZoom {
+      0% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .form-popup h3 {
@@ -126,7 +140,15 @@
 
   <script>
     function openForm() {
-      document.getElementById("overlay").style.display = "flex";
+      const overlay = document.getElementById("overlay");
+      const popup = overlay.querySelector(".form-popup");
+
+      overlay.style.display = "flex";
+
+      // Сброс и повтор анимации
+      popup.style.animation = "none";
+      popup.offsetHeight; // триггер перерисовки
+      popup.style.animation = "fadeInZoom 0.4s forwards";
     }
 
     function closeForm() {
