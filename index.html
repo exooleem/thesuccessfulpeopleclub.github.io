@@ -98,7 +98,7 @@ max-width: 480px {
 
 <div class="overlay" id="overlay" onclick="closeForm()">
 <div class="form-popup" onclick="event.stopPropagation()">
-<h3>Contact us</h3>
+<h3 id="formTitle">Contact us</h3>
 <form id="contactForm">
 <input type="text" name="name" placeholder="Name" required />
 <input type="email" name="email" placeholder="Email" required />
@@ -114,6 +114,7 @@ const overlay = document.getElementById("overlay");
 const popup = overlay.querySelector(".form-popup");
 const successMessage = document.getElementById("successMessage");
 const form = document.getElementById("contactForm");
+const formTitle = document.getElementById("formTitle");
 
 function openForm() {
 overlay.classList.add("active");
@@ -126,13 +127,14 @@ function closeForm() {
 overlay.classList.remove("active");
 successMessage.style.display = "none";
 form.style.display = "block";
+formTitle.style.display = "block";
 }
 
 form.addEventListener("submit", function(e) {
 e.preventDefault();
 const formData = new FormData(form);
 
-fetch("https://formbold.com/s/9xQ4W", {
+fetch("formbold.com/s/9xQ4W", {
 method: "POST",
 body: formData
 })
@@ -141,6 +143,7 @@ if (response.ok) {
 form.reset();
 form.style.display = "none";
 successMessage.style.display = "block";
+formTitle.style.display = "none"; // скрываем заголовок после отправки
 } else {
 alert("Something went wrong. Please try again later.");
 }
