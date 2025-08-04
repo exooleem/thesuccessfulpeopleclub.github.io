@@ -1,158 +1,117 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Successful People Club</title>
-<style>
-* { box-sizing: border-box; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Chechen People's Club</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-html, body {
-margin: 0; padding: 0; height: 100%;
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-background: #ffffff;
-}
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
 
-.centered-wrapper {
-display: flex; flex-direction: column;
-justify-content: center; align-items: center;
-height: 100vh; text-align: center; padding: 20px;
-}
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.8s ease;
+      opacity: 1;
+    }
 
-.centered-wrapper img {
-max-width: 80%; width: 360px; height: auto;
-cursor: pointer; transition: transform 0.3s ease;
-}
+    .logo-wrapper {
+      position: relative;
+      width: 340px;
+      height: 340px;
+      cursor: pointer;
+    }
 
-.centered-wrapper img:hover {
-transform: scale(1.03);
-}
+    .logo-static, .logo-rotating {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      height: auto;
+    }
 
-.overlay {
-position: fixed; top: 0; left: 0;
-width: 100vw; height: 100vh;
-background: rgba(0, 0, 0, 0.5);
-display: flex; justify-content: center; align-items: center;
-z-index: 10;
-transition: opacity 0.5s ease;
-opacity: 0;
-pointer-events: none;
-}
+    .logo-static {
+      width: 400px;
+    }
 
-.overlay.active {
-opacity: 1;
-pointer-events: all;
-}
+    .logo-rotating {
+      width: 420px;
+      pointer-events: none;
+      animation: rotateCounterClockwise 25s linear infinite;
+    }
 
-.form-popup {
-background: white; padding: 30px 25px; border-radius: 12px;
-width: 320px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-opacity: 0; transform: scale(0.9);
-animation: fadeInZoom 0.4s forwards;
-}
-
-@keyframes fadeInZoom {
-0% { opacity: 0; transform: scale(0.9); }
-100% { opacity: 1; transform: scale(1); }
-}
-
-.form-popup h3 {
-margin-top: 0; font-size: 20px; margin-bottom: 20px;
-text-align: center;
-}
-
-.form-popup input,
-.form-popup textarea {
-width: 100%; padding: 10px; margin-bottom: 15px;
-font-size: 14px; border: 1px solid #ccc; border-radius: 6px;
-}
-
-.form-popup button {
-width: 100%; padding: 12px;
-background: #610000; color: white;
-border: none; font-weight: bold;
-font-size: 14px; cursor: pointer; border-radius: 30px;
-transition: background 0.3s ease;
-}
-
-.form-popup button:hover {
-background: #4d0000;
-}
-
-#successMessage {
-display: none; text-align: center;
-margin-top: 15px; font-size: 15px; color: black;
-}
-
-max-width: 480px {
-.form-popup { width: 90%; }
-.centered-wrapper img { width: 220px; }
-}
-</style>
+    @keyframes rotateCounterClockwise {
+      from {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+      to {
+        transform: translate(-50%, -50%) rotate(-360deg);
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="centered-wrapper">
-<img src="logo.svg" alt="Successful People Club" onclick="openForm()" />
-</div>
+  <div class="logo-wrapper" id="logoWrapper">
+    <img src="logo1.svg" class="logo-static" alt="Фиксированный логотип" id="logoStatic">
+    <img src="logo2.svg" class="logo-rotating" alt="Вращающийся логотип" id="logoRotating">
+  </div>
 
-<div class="overlay" id="overlay" onclick="closeForm()">
-<div class="form-popup" onclick="event.stopPropagation()">
-<h3 id="formTitle">Contact us</h3>
-<form id="contactForm">
-<input type="text" name="name" placeholder="Name" required />
-<input type="email" name="email" placeholder="Email" required />
-<textarea name="message" placeholder="Message" rows="4"></textarea>
-<button type="submit">Send</button>
-</form>
-<div id="successMessage">We will contact you.</div>
-</div>
-</div>
+  <script>
+    const logoStatic = document.getElementById('logoStatic');
+    const logoRotating = document.getElementById('logoRotating');
+    const logoWrapper = document.getElementById('logoWrapper');
+    const body = document.body;
 
-<script>
-const overlay = document.getElementById("overlay");
-const popup = overlay.querySelector(".form-popup");
-const successMessage = document.getElementById("successMessage");
-const form = document.getElementById("contactForm");
-const formTitle = document.getElementById("formTitle");
+    let staticLoaded = false;
+    let rotatingLoaded = false;
 
-function openForm() {
-overlay.classList.add("active");
-popup.style.animation = "none";
-popup.offsetHeight;
-popup.style.animation = "fadeInZoom 0.4s forwards";
-}
+    function tryShowLogos() {
+      if (staticLoaded && rotatingLoaded) {
+        logoStatic.style.display = 'block';
+        logoRotating.style.display = 'block';
+      }
+    }
 
-function closeForm() {
-overlay.classList.remove("active");
-successMessage.style.display = "none";
-form.style.display = "block";
-formTitle.style.display = "block";
-}
+    function checkImageLoaded(img, onLoadCallback) {
+      if (img.complete) {
+        onLoadCallback();
+      } else {
+        img.addEventListener('load', onLoadCallback);
+      }
+    }
 
-form.addEventListener("submit", function(e) {
-e.preventDefault();
-const formData = new FormData(form);
+    checkImageLoaded(logoStatic, () => {
+      staticLoaded = true;
+      tryShowLogos();
+    });
 
-fetch("https://formbold.com/s/9xQ4W", {
-method: "POST",
-body: formData
-})
-.then(response => {
-if (response.ok) {
-form.reset();
-form.style.display = "none";
-successMessage.style.display = "block";
-formTitle.style.display = "none"; // скрываем заголовок после отправки
-} else {
-alert("Something went wrong. Please try again later.");
-}
-})
-.catch(error => {
-alert("Error: " + error.message);
-});
-});
-</script>
+    checkImageLoaded(logoRotating, () => {
+      rotatingLoaded = true;
+      tryShowLogos();
+    });
+
+    logoWrapper.addEventListener('click', () => {
+      // Плавно скрываем body
+      body.style.opacity = '0';
+
+      // Ждём окончания анимации перед переходом
+      setTimeout(() => {
+        window.location.href = 'home.html';
+      }, 800); // Задержка должна совпадать с transition: 0.8s
+    });
+  </script>
 
 </body>
 </html>
